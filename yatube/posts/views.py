@@ -122,7 +122,7 @@ def add_comment(request, post_id):
 def follow_index(request):
     context = paginate(Post.objects.filter(
         author__following__user=request.user
-        ), request)
+    ), request)
     return render(request, 'posts/follow.html', context)
 
 
