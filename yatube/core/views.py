@@ -22,7 +22,7 @@ def server_error(request):
 
 def csrf_failure(request, reason=''):
     return render(
-        request, 
+        request,
         'core/403csrf.html',
         status=HTTPStatus.FORBIDDEN,
     )
