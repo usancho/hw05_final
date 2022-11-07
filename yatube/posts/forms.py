@@ -7,14 +7,15 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('text', 'group', 'image')
-        labels = {'text': 'Содержание поста',
-                  'group': 'Группа поста',
-                  'image': 'Изображение поста',
-                  }
+        help_texts = {
+            'text': 'Введите текст...',
+            'group': 'Выберите группу...',
+            'image': 'Выберите изображение...',
+        }
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ('text',)
-        labels = {'text': 'Содержание комментария', }
+        help_texts = {'text': 'Введите текст комментария...'}

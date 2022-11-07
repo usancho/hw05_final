@@ -37,7 +37,7 @@
         <img class="card-img my-2" src="{{ im.url }}" height="{{ im.height }}" width="{{ im.width }}">
         {% endthumbnail %}
         <p>
-          {{ post.text|truncatewords:5 }}
+          {{ post.text|linebreaksbr }}
         </p>
         {% if post.group %}
         <a href="{% url 'posts:post_detail' post.pk %}">
@@ -45,7 +45,7 @@
         </a>
       </article>
       <a href="{% url 'posts:group_list' post.group.slug %}">
-        все записи группы {{ post.group }}
+        все записи группы "{{ group.title }}"
       </a>
         {% endif %}
       <hr>

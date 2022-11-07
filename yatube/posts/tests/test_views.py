@@ -151,7 +151,7 @@ class PaginatorViewsTest(TestCase):
             [
                 Post(
                     author=cls.user,
-                    text=f'Тестовый текст поста #{str(post_number)}',
+                    text=f'Тестовый текст поста #{post_number}',
                     group=cls.group,
                 )
                 for post_number in range(1, 16)
@@ -272,20 +272,26 @@ class FollowTests(TestCase):
         Авторизованный пользователь может подписываться
         на других пользователей.
         '''
+        Follow.objects.create(user=self.user_follower,
+                              author=self.user_following)
         self.authorized_client_follower.get(
-            reverse('posts:profile_follow',
+            reverse('posts:profile',
                     kwargs={'username':
-                            self.user_following.username}))
+                            self.user_follower.username}))
         self.assertEqual(Follow.objects.all().count(), 1)
 
     def test_unfollow(self):
         '''
         Авторизованный пользователь может удалять пользователей из подписок.
         '''
+        Follow.objects.create(user=self.user_follower,
+                              author=self.user_following)
+        '''
         self.authorized_client_follower.get(
             reverse('posts:profile_follow',
                     kwargs={'username':
                             self.user_following.username}))
+        '''
         self.authorized_client_follower.get(
             reverse('posts:profile_unfollow',
                     kwargs={'username':

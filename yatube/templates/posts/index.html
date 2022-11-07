@@ -7,7 +7,6 @@
   {% block content %}
   {% cache 20 index_page %}
   {% include 'posts/includes/switcher.html' %}
-  <div class="container py-5">
     <h1>
       Это главная страница проекта Yatube
     </h1>
@@ -34,6 +33,5 @@
       {% endfor %}
     </article>
   {% include 'posts/includes/paginator.html' %}
-  </div>
   {% endcache %} 
   {% endblock %}

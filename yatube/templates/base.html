@@ -19,16 +19,14 @@
     </title> 
     {% endblock %} 
   </head>
-  <body>
-    {% block header %}      
-    {% include 'includes/header.html' %} 
-    {% endblock %}  
-    <main> 
-      {% block content %}
-      Content is null
-      {% endblock %}
-    </main> 
-    {% block footer %}      
+  <body>  
+    {% include 'includes/header.html' %}  
+    <main>
+      <div class="container py-5">
+        {% block content %}
+        Content is null
+        {% endblock %}
+      </div>
+    </main>    
     {% include 'includes/footer.html' %} 
-    {% endblock %}
   </body>

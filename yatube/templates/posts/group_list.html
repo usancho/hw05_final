@@ -4,15 +4,14 @@
     {{ group.title }}
   {% endblock %}
   {% block content %}
-  <div class="container py-5">
     <h1>
       {{ group.title }}
     </h1>
     <p>
       {{ group.description }}
     </p>
-    <article>
-      {% for post in page_obj %}
+    {% for post in page_obj %}
+      <article>
         <ul>
           <li>
             Автор: {{ post.author.username }}
@@ -25,10 +24,10 @@
         <img class="card-img my-2" src="{{ im.url }}" height="{{ im.height }}" width="{{ im.width }}">
         {% endthumbnail %}
         <p>
-           {{ post.text }}
+           {{ post.text|linebreaksbr }}
         </p>
         {% if not forloop.last %}<hr>{% endif %}
-      {% endfor %} 
-    </article>
+      </article>
+    {% endfor %}
   {% include 'posts/includes/paginator.html' %}      
   {% endblock %} 

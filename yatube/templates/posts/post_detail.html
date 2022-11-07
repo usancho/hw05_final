@@ -33,10 +33,12 @@
         <img class="card-img my-2" src="{{ im.url }}" height="{{ im.height }}" width="{{ im.width }}">
     {% endthumbnail %}
     <p>
-      {{ post.text|truncatewords:30 }}
+      {{ post.text|linebreaksbr }}
     </p>
-    <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">
-      редактировать запись</a>    
+    {% if user == post.author %}
+      <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">
+        редактировать запись</a>
+    {% endif %}  
         {% if user.is_authenticated %}
           <div class="card my-4">
             <h5 class="card-header">Добавить комментарий:</h5>
@@ -60,7 +62,7 @@
                 </a>
               </h5>
               <p>
-                {{ comment.text }}
+                {{ comment.text|linebreaksbr }}
               </p>
             </div>
           </div>

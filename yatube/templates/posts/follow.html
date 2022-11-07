@@ -7,7 +7,6 @@
   {% block content %}
   {% cache 20 index_page %}
   {% include 'posts/includes/switcher.html' %}
-  <div class="container py-5">
     <h1>
       Посты по подписке
     </h1>
@@ -25,7 +24,7 @@
         <img class="card-img my-2" src="{{ im.url }}" height="{{ im.height }}" width="{{ im.width }}">
         {% endthumbnail %}
         <p>
-          {{ post.text }}
+          {{ post.text|linebreaksbr }}
         </p>
         {% if post.group %}   
         <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
@@ -34,7 +33,6 @@
       {% endfor %}
     </article>
   {% include 'posts/includes/paginator.html' %}
-  </div>
   {% endcache %} 
   {% endblock %}
 
