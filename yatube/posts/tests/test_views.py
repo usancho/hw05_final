@@ -272,8 +272,8 @@ class FollowTests(TestCase):
         Авторизованный пользователь может подписываться
         на других пользователей.
         '''
-        Follow.objects.create(user=self.user_follower,
-                              author=self.user_following)
+        #Follow.objects.create(user=self.user_follower,
+        #                      author=self.user_following)
         self.authorized_client_follower.get(
             reverse('posts:profile',
                     kwargs={'username':

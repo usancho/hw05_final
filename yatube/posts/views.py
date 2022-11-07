@@ -1,7 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
 from http import HTTPStatus
 from .utils import paginate
 
@@ -112,13 +111,12 @@ def follow_index(request):
 
 @login_required
 def profile_follow(request, username):
-    user = request.user
     author = get_object_or_404(User, username=username)
-    is_follower = Follow.objects.filter(user=user, author=author)
-    if user == author or is_follower.exists():
-        return redirect(reverse('posts:profile', args=[username]))
+    is_follower = Follow.objects.filter(user=request.user, author=author)
+    if is_follower.exists():
+        return redirect('posts:profile', username=author)
     else:
-        Follow.objects.create(user=user, author=author)
+        Follow.objects.create(user=request.user, author=author)
 
 
 @login_required
