@@ -272,12 +272,10 @@ class FollowTests(TestCase):
         Авторизованный пользователь может подписываться
         на других пользователей.
         '''
-        #Follow.objects.create(user=self.user_follower,
-        #                      author=self.user_following)
         self.authorized_client_follower.get(
-            reverse('posts:profile',
+            reverse('posts:profile_follow',
                     kwargs={'username':
-                            self.user_follower.username}))
+                            self.user_following.username}))
         self.assertEqual(Follow.objects.all().count(), 1)
 
     def test_unfollow(self):
