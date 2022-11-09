@@ -11,34 +11,33 @@ User = get_user_model()
 
 
 def index(request):
-    context = paginate(Post.objects.all(), request)
+    page_obj = paginate(Post.objects.all(), request)
+    context = {'page_obj': page_obj}
     return render(request, 'posts/index.html', context)
 
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()
+    page_obj = paginate(group.posts.all(), request)
     context = {
         'group': group,
-        'posts': posts,
+        'page_obj': page_obj
     }
-    context.update(paginate(posts, request))
     return render(request, 'posts/group_list.html', context)
 
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    post_count = author.posts.count()
     following = request.user.is_authenticated and Follow.objects.filter(
         user=request.user, author=author,).exists()
     profile = author
+    page_obj = paginate(author.posts.all(), request)
     context = {
         'author': author,
         'following': following,
         'profile': profile,
-        'post_count': post_count,
+        'page_obj': page_obj,
     }
-    context.update(paginate(author.posts.all(), request))
     return render(request, 'posts/profile.html', context)
 
 
@@ -104,8 +103,9 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    context = paginate(Post.objects.filter(
+    page_obj = paginate(Post.objects.filter(
         author__following__user=request.user), request)
+    context = {'page_obj': page_obj}
     return render(request, 'posts/follow.html', context)
 
 
